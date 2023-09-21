@@ -2,10 +2,8 @@
 
 one:
   body: MyText
-  like: 1
   user: one
 
 two:
   body: MyText
-  like: 1
   user: two
