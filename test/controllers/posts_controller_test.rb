@@ -6,9 +6,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect if not logged in' do
-    sign_in users(:one)
+    sign_out :user
     get posts_url
-    assert_response :success
+    assert_response :redirect
   end
 
   test 'should get index' do
