@@ -79,3 +79,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-google-oauth2'
 gem 'figaro'
 gem "guard", "~> 2.18"
+
+gem "minitest-reporters", "~> 1.6"
+
+gem "guard-minitest", "~> 2.4"
