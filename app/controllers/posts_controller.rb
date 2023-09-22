@@ -3,12 +3,15 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
+    @our_posts = current_user.friends_and_own_posts
     @posts = Post.all
     @users = User.all
   end
 
   # GET /posts/1 or /posts/1.json
-  def show; end
+  def show
+    @post = Post.find(params[:id])
+  end
 
   # GET /posts/new
   def new
