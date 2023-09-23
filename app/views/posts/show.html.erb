@@ -7,7 +7,7 @@
   <% else %>
     <%= button_to 'Like', post_likes_path(@post), method: :post %>
   <% end %>
-  <p> <%= @post.likes.count %> <%= @post.likes.count == 1 ? 'Like' : 'Likes' %> </p>
+  <%= render 'likes/like_posts'%>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to posts", posts_path %>
   <%= button_to "Destroy this post", @post, method: :delete %>

@@ -5,7 +5,7 @@
         <h5 class="modal-title" id="decisionModalLabel">Friend Request from <%= "#{object.email}" %></h5>
       </div>
       <div class="modal-footer">
-        <%= link_to "Accept request", accept_friend_user_friendships_path(user_id: object.id)%>
+        <%= link_to "Accept request", accept_friend_user_friendships_path(object)%>
         <%= link_to "Decline request", decline_friend_user_friendships_path(object) %>
       </div>
     </div>

@@ -1,37 +1,62 @@
 class LikesController < ApplicationController
   include ApplicationHelper
 
-  before_action :find_post
-  before_action :find_like, only: [:destroy]
+  # before_action :find_post
+  # before_action :find_like, only: [:destroy]
 
   def create
-    if already_liked?
-      flash[:notice] = 'You already liked this post!'
+    type = type_subject?(params)[0]
+    @subject = type_subject?(params)[1]
+    notice_type = "like-#{type}"
+    return unless @subject
+
+    if already_liked?(type)
+      dislike(type)
     else
-      @post.likes.create(user_id: current_user.id)
+      @like = @subject.likes.build(user_id: current_user.id)
+      if @like.save
+        flash[:success] = "#{type} liked!"
+        @notification = new_notification(@subject.user, @subject.id,
+                                         notice_type)
+        @notification.save
+      else
+        flash[:danger] = "#{type} like failed!"
+      end
+      redirect_back(fallback_location: root_path)
     end
-    redirect_to post_path(@post)
   end
 
-  def destroy
-    if !already_liked?
-      flash[:notice] = 'You have not liked this post yet.'
-    else
-      @like.destroy
-      redirect_to post_path(@post)
+  private
+
+  def type_subject?(params)
+    type = 'post' if params.key?('post_id')
+    type = 'comment' if params.key?('comment_id')
+    subject = Post.find(params[:post_id]) if type == 'post'
+    subject = Comment.find(params[:comment_id]) if type == 'comment'
+    [type, subject]
+  end
+
+  def already_liked?(type)
+    result = false
+    if type == 'post'
+      result = Like.where(user_id: current_user.id,
+                          post_id: params[:post_id]).exists?
     end
+    if type == 'comment'
+      result = Like.where(user_id: current_user.id,
+                          comment_id: params[:comment_id]).exists?
+    end
+    result
   end
 
-  def find_post
-    @post = Post.find(params[:post_id])
-  end
+  def dislike(type)
+    @like = Like.find_by(post_id: params[:post_id]) if type ==
+                                                       'post'
+    @like = Like.find_by(comment_id: params[:comment_id]) if type ==
+                                                             'comment'
+    return unless @like
 
-  def find_like
-    @like = Like.find(params[:id])
-  end
-
-  def already_liked?
-    Like.where(user_id: current_user.id, post_id:
-    params[:post_id]).exists?
+    @like.destroy
+    redirect_back(fallback_location: root_path)
   end
 end
