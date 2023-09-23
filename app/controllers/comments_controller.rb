@@ -1,4 +1,5 @@
-class CommentController < ApplicationController
+class CommentsController < ApplicationController
+  include ApplicationHelper
   def new
     @comment = Comment.new
   end
@@ -10,8 +11,10 @@ class CommentController < ApplicationController
       @notification = new_notification(@post.user, @post.id,
                                        'comment')
       @notification.save
+      redirect_to @post
+    else
+      render :new
     end
-    redirect_to @post
   end
 
   def destroy

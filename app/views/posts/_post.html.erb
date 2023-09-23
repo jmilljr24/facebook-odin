@@ -8,3 +8,5 @@
     <%= post.user.email %>
   </p>
 </div>
+<div <%= render 'comments/comment', object: post %></div>
+  <%= render 'comments/form', object: post %>

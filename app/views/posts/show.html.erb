@@ -1,5 +1,5 @@
 <p style="color: green"><%= notice %></p>
-<%= render @post %>
+<%= render @post, object: @post %>
 <div>
   <% pre_like = @post.likes.find { |like| like.user_id == current_user.id} %>
   <% if pre_like %>
