@@ -83,3 +83,5 @@ gem "guard", "~> 2.18"
 gem "minitest-reporters", "~> 1.6"
 
 gem "guard-minitest", "~> 2.4"
+
+gem "pry-byebug", "~> 3.10"

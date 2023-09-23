@@ -5,12 +5,8 @@
         <h5 class="modal-title" id="decisionModalLabel">Friend Request from <%= "#{object.email}" %></h5>
       </div>
       <div class="modal-footer">
-        <%= link_to accept_friend_user_friendships_path(object) do %>
-          <button type="button" class="btn btn-accept text-white font-weight-bold"> <i class="fas fa-user-check"></i> Accept</button>
-        <% end %>
-        <%= link_to decline_friend_user_friendships_path(object) do %>
-          <button type="button" class="btn btn-decline text-white font-weight-bold"><i class="fas fa-user-times"></i> Decline</button>
-        <% end %>
+        <%= link_to "Accept request", accept_friend_user_friendships_path(user_id: object.id)%>
+        <%= link_to "Decline request", decline_friend_user_friendships_path(object) %>
       </div>
     </div>
   </div>
