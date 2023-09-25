@@ -2,10 +2,10 @@
 <div id="posts">
   <% @posts.each do |post| %>
     <%= render post %>
+    <%= render 'likes/like_posts', post: post%>
     <p>
       <%= link_to "Show this post", post %>
     </p>
   <% end %>
 </div>
 <%= link_to "New post", new_post_path %>
-<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, method: :post %>

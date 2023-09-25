@@ -1,0 +1,2 @@
+<p> <%= comment.likes.count %> <%= comment.likes.count == 1 ? 'Like' : 'Likes' %> </p>
+<%= button_to 'Like', comment_likes_path(comment), method: :post %>
