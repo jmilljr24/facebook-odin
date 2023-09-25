@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50">
+<header class="sticky top-0 z-50 bg-blue-800 rounded-b-lg shadow-xl">
   <% comment do%>
     <%= link_to posts_path, class: "text-light" do %>
       <%=image_tag("user-secret-solid.svg", id: "logo", class: "navbar-branch")%>
@@ -34,7 +34,6 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "My Profile", user_path(current_user), class: "dropdown-item font-raleway" %>
-            <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item font-raleway", method: :delete %>
           </div>
         </li>
       <% end %>
