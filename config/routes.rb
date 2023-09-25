@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'users/index'
   get 'users/show'
   get 'friendships/create'
+  get '/saw_notification', to: 'users#saw_notification', as: 'saw_notice'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

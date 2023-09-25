@@ -9,4 +9,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+
+  def saw_notification
+    current_user.notice_seen = true
+    current_user.save
+  end
 end

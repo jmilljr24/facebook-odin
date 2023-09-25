@@ -40,6 +40,10 @@ module ApplicationHelper
     Post.find(comment.post_id)
   end
 
+  def notification_seen
+    current_user.notice_seen
+  end
+
   def liked?(subject, type)
     result = false
     if type == 'post'
