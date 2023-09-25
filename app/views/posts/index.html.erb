@@ -1,11 +1,13 @@
-<h1>Posts</h1>
-<div id="posts">
+<h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">Posts</h1>
+<div id="posts" class="items-center ">
   <% @posts.each do |post| %>
-    <%= render post %>
-    <%= render 'likes/like_posts', post: post%>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
+    <div class="max-w-prose border-8 border-black rounded m-4">
+      <%= render post %>
+      <%= render 'likes/like_posts', post: post%>
+      <p>
+        <%= link_to "Show this post", post %>
+      </p>
+    </div>
   <% end %>
 </div>
 <%= link_to "New post", new_post_path %>
