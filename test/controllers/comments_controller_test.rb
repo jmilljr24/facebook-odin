@@ -16,8 +16,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test 'should get create' do
     sign_in users(:one)
     assert_difference('Comment.count') do
-      post comments_url, params: { post: @post, comment: @comment }
+      post comments_url, params: { comment: { content: @comment.content, post_id: @post.id } }
     end
-    assert_redirected_to comment_url(Comment.last)
+    assert_redirected_to post_url(Post.find_by(id: @post.id))
   end
 end
