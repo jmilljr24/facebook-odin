@@ -1,2 +1,2 @@
 <p> <%= comment.likes.count %> <%= comment.likes.count == 1 ? 'Like' : 'Likes' %> </p>
-<%= button_to 'Like', comment_likes_path(comment), method: :post %>
+<%= button_to 'Like', comment_likes_path(comment), method: :post %> <%#Needs JS to change button from like to dislike%>
