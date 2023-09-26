@@ -4,7 +4,7 @@
   <%= @user.email%>
   <br>
 </h1>
-<% comment do%>
+<% comment do %>
   <div class="row">
     <div class=" mx-auto">
       <div class="col-m6 mb-2"> <%= image_tag @user.image.url if @user.image? %> </div>
@@ -20,6 +20,10 @@
   </div>
   <% comment end%>
   <h2 class="center mt-5 font-weight-bold border-top pt-5 ">Posts</h2>
-  <% @user.posts.each do |post|%>
+  <% user_posts = @user.posts.paginate(page: params[:page], per_page: 3).order('created_at DESC')%>
+  <% user_posts.each do |post|%>
     <%= render 'posts/post', post: post %>
   <% end %>
+  <div class="apple_pagination">
+    <%= will_paginate user_posts %>
+  </div>
