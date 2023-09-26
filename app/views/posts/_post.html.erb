@@ -7,6 +7,7 @@
     <strong>User:</strong>
     <%= post.user.email %>
   </p>
+  <p >Posted <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</p>
 </div>
 <%= render 'comments/comment', post: post %>
 <%= render 'comments/form', post: post %>

@@ -1,5 +1,7 @@
 <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">Posts</h1>
+<%= link_to "New post", new_post_path %>
 <div id="posts" class="items-center ">
+  <% @posts = Post.paginate(page: params[:page], per_page: 3).order('created_at DESC') %>
   <% @posts.each do |post| %>
     <div class="max-w-prose border-8 border-black rounded m-4">
       <%= render post %>
@@ -10,4 +12,6 @@
     </div>
   <% end %>
 </div>
-<%= link_to "New post", new_post_path %>
+<div class="apple_pagination">
+  <%= will_paginate @posts %>
+</div>

@@ -87,3 +87,5 @@ gem "guard-minitest", "~> 2.4"
 gem "pry-byebug", "~> 3.10"
 
 gem "faker", "~> 3.2"
+
+gem "will_paginate", "~> 4.0"
