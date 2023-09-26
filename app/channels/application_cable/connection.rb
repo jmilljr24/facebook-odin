@@ -7,7 +7,7 @@ module ApplicationCable
     end
 
     def find_verified_user
-      if verified_user = env['warden'].user
+      if verified_user = env['warden'].user # rubocop:disable Lint/AssignmentInCondition
         verified_user
       else
         reject_unauthorized_connection

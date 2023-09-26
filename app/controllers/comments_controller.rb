@@ -11,9 +11,16 @@ class CommentsController < ApplicationController
       @notification = new_notification(@post.user, @post.id,
                                        'comment')
       @notification.save
-      redirect_to @post
+      respond_to do |format|
+        format.turbo_stream { render :create, locals: { post: @post, comment: @comment } }
+        format.html { redirect_to @post }
+      end
+
     else
-      render :new
+
+      format.html { render :new, status: :unprocessable_entity, locals: { comment: @comment } }
+      format.turbo_stream { render :new, status: :unprocessable_entity, locals: { comment: @comment } }
+
     end
   end
 

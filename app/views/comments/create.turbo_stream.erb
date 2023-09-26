@@ -1,0 +1,3 @@
+<%= turbo_stream.append "post_comments" do %>
+  <%= render partial: "comment_show", locals: { post: @post, comment: @comment } %>
+<% end%>
