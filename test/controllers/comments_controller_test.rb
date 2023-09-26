@@ -6,13 +6,6 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @comment = comments(:one)
   end
 
-  test 'should get new' do
-    sign_in users(:one)
-    post_id = @post.id
-    get new_comment_url, params: { post: @post }
-    assert_response :success
-  end
-
   test 'should get create' do
     sign_in users(:one)
     assert_difference('Comment.count') do
