@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'friendships/create'
   get '/saw_notification', to: 'users#saw_notification', as: 'saw_notice'
-
+  post '/post/comment/create', to: 'comments#create', as: 'comment_comments'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
