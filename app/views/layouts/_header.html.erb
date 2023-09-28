@@ -1,21 +1,21 @@
-<header class="sticky top-0 z-50 bg-gray-800 border-slate-400 border-t-2 border-b-2 text-slate-400 shadow-xl p-2">
+<header class="flex flex-row sticky top-0 z-50 bg-gray-800 border-slate-400 border-t-2 border-b-2 text-slate-400 shadow-xl p-2">
   <% comment do%>
     <%= link_to posts_path, class: "text-light" do %>
       <%=image_tag("user-secret-solid.svg", id: "logo", class: "navbar-branch")%>
       <span class="text-white font-weight-bold font-courgette size-24">SpyBook</span>
     <% end %>
     <% comment end%>
-    <div class= "col-auto">
+    <div class= "basis-1/3">
       <%= link_to posts_path, class: "text-light nav-link font-raleway" do%>
         <i class="fas fa-home fa-2x"></i> Timeline
       <%end%>
     </div>
-    <div class= "col-auto">
+    <div class= "basis-1/3">
       <%= link_to users_path, class: "text-light nav-link font-raleway" do%>
         <i class="fas fa-users fa-2x"></i> Find Friends
       <%end%>
     </div>
-    <ul class="navbar-nav ml-auto">
+    <ul class="basis-1/3">
       <% if user_signed_in? %>
         <li class="nav-item">
           <%= button_to saw_notice_path, :class => "text-white btn notice-btn-#{notification_seen}",
@@ -27,7 +27,7 @@
             <% end %>
           <% end %>
         </li>
-        <li class="nav-item dropdown">
+        <li class="">
           <a id= "navbarDropdown" class="nav-link dropdown-toggle font-raleway" 
                 href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account <b class="caret"></b>

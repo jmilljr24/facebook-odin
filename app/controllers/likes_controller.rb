@@ -50,10 +50,10 @@ class LikesController < ApplicationController
   end
 
   def dislike(type)
-    @like = Like.find_by(post_id: params[:post_id]) if type ==
-                                                       'post'
-    @like = Like.find_by(comment_id: params[:comment_id]) if type ==
-                                                             'comment'
+    @like = Like.find_by(user_id: current_user.id, post_id: params[:post_id]) if type ==
+                                                                                 'post'
+    @like = Like.find_by(user_id: current_user.id, comment_id: params[:comment_id]) if type ==
+                                                                                       'comment'
     return unless @like
 
     @like.destroy
