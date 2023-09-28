@@ -26,11 +26,17 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
+    remove_notifications(@comment.post_id)
     return unless current_user.id == @comment.user_id
 
     @comment.destroy
     flash[:success] = 'Comment deleted'
     redirect_back(fallback_location: root_path)
+  end
+
+  def remove_notifications(comment_id)
+    @notification = Notification.find_by(notice_id: comment_id)
+    @notification.destroy
   end
 
   private

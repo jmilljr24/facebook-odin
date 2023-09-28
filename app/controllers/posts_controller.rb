@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  include ApplicationHelper
   before_action :set_post, only: %i[show edit update destroy]
 
   # GET /posts or /posts.json
@@ -51,11 +52,36 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+    remove_notifications(@post)
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def remove_notifications(post)
+    user = post.user
+    user.notice_seen = true
+    comments = Comment.where(post_id: post.id)
+    @notification = Notification.find_by(notice_id: post.id)
+    @notification&.destroy
+    like_posts = Like.where(post_id: post.id)
+    like_posts.each do |like|
+      like&.destroy
+    end
+
+    return unless comments.present?
+
+    comments.each do |comment|
+      like_comments = Like.where(comment_id: comment.id)
+      like_comments.each do |like|
+        like&.destroy
+      end
+
+      @notification = Notification.find_by(notice_id: comment.id)
+      @notification&.destroy
     end
   end
 
@@ -63,7 +89,11 @@ class PostsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_post
-    @post = Post.find(params[:id])
+    if Post.find_by(id: params[:id]).nil?
+      redirect_to root_url
+    else
+      @post = Post.find(params[:id])
+    end
   end
 
   # Only allow a list of trusted parameters through.
