@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    remove_notifications(@comment.post_id)
+    remove_notifications(@comment.id)
     return unless current_user.id == @comment.user_id
 
     @comment.destroy

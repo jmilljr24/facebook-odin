@@ -64,24 +64,28 @@ class PostsController < ApplicationController
   def remove_notifications(post)
     user = post.user
     user.notice_seen = true
-    comments = Comment.where(post_id: post.id)
-    @notification = Notification.find_by(notice_id: post.id)
-    @notification&.destroy
-    like_posts = Like.where(post_id: post.id)
-    like_posts.each do |like|
-      like&.destroy
-    end
 
+    notifications = Notification.where(notice_id: post.id, notice_type: 'like-post')
+    notifications.each { |n| n&.destroy }
+
+    notifications = Notification.where(notice_id: post.id, notice_type: 'comment')
+    notifications.each { |n| n&.destroy }
+
+    # like_posts = Like.where(post_id: post.id)
+    # like_posts.each do |like|
+    #   like&.destroy
+    # end
+    comments = Comment.where(post_id: post.id)
     return unless comments.present?
 
     comments.each do |comment|
-      like_comments = Like.where(comment_id: comment.id)
-      like_comments.each do |like|
-        like&.destroy
-      end
+      # like_comments = Like.where(comment_id: comment.id)
+      # like_comments.each do |like|
+      #   like&.destroy
+      # end
 
-      @notification = Notification.find_by(notice_id: comment.id)
-      @notification&.destroy
+      notifications = Notification.where(notice_id: comment.id, notice_type: 'like-comment')
+      notifications.each { |n| n&.destroy }
     end
   end
 
