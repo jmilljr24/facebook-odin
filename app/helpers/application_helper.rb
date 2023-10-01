@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
   def comment; end
 
   def friend_request_sent?(user)

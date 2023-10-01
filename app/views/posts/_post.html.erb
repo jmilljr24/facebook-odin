@@ -2,6 +2,8 @@
   <p>
     <strong>Body:</strong>
     <%= post.body %>
+    <strong>, ID:</strong>
+    <%= post.id %>
   </p>
   <p>
     <strong>User:</strong>
@@ -9,5 +11,7 @@
   </p>
   <p >Posted <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</p>
 </div>
-<%= render 'comments/comment', post: post %>
-<%= render 'comments/form', post: post %>
+<% comment do%>
+  <%= render 'comments/comment', post: post %>
+  <%= render 'comments/form', post: post %>
+  <% comment end%>

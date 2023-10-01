@@ -1,17 +1,26 @@
 <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">Posts</h1>
 <%= link_to "New post", new_post_path %>
-<div id="posts" class="items-center ">
-  <% @posts = Post.paginate(page: params[:page], per_page: 3).order('created_at DESC') %>
-  <% @posts.each do |post| %>
-    <div class="max-w-prose border-8 border-black rounded m-4">
-      <%= render post %>
-      <%= render 'likes/like_posts', post: post%>
-      <p>
-        <%= link_to "Show this post", post %>
-      </p>
-    </div>
-  <% end %>
-</div>
-<div class="apple_pagination">
-  <%= will_paginate @posts %>
-</div>
+<%= turbo_frame_tag :posts do %>
+  <%= render @posts %>
+<% end %>
+<%= turbo_frame_tag :pagination, 
+  loading: :lazy,
+  src: posts_path(format: :turbo_stream, page: @pagy.next)
+  %>
+<% comment do%>
+  <div id="posts" class="items-center ">
+    <% @posts = Post.paginate(page: params[:page], per_page: 3).order('created_at DESC') %>
+    <% @posts.each do |post| %>
+      <div class="max-w-prose border-8 border-black rounded m-4">
+        <%= render post %>
+        <%= render 'likes/like_posts', post: post%>
+        <p>
+          <%= link_to "Show this post", post %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <div class="apple_pagination">
+    <%= will_paginate @posts %>
+  </div>
+  <% comment end%>

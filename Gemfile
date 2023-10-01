@@ -88,4 +88,5 @@ gem "pry-byebug", "~> 3.10"
 
 gem "faker", "~> 3.2"
 
-gem "will_paginate", "~> 4.0"
+
+gem "pagy", "~> 6.1"
