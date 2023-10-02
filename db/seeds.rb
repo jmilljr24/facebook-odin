@@ -7,7 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'faker'
 
-10.times do |_i|
+50.times do |_i|
   email = Faker::Internet.email
   encrypted_password = Devise.friendly_token[0, 20]
   User.create!(
