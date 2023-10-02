@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   def index
     @our_posts = current_user.friends_and_own_posts
 
-    @pagy, @posts = pagy_countless(Post.all, items: 10)
+    @pagy, @posts = pagy_countless(Post.all, items: 3)
     @users = User.all
 
     respond_to do |format|

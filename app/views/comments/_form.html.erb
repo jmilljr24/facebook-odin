@@ -2,7 +2,7 @@
   <%= form_with model: [ @comment, post.comments.build] do |f| %>
     <%# render "devise/shared/error_messages", resource: @comment %>
     <%= f.hidden_field :post_id, :value => post.id %>
-    <div >
+    <div>
       <%= f.text_area :content, class: "comment-box", placeholder: "Type your comment..." %>
     </div>
     <div>

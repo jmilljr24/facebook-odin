@@ -1,20 +1,22 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>Body:</strong>
-    <%= post.body %>
-    <strong>, ID:</strong>
-    <%= post.id %>
-  </p>
-  <p>
-    <strong>User:</strong>
-    <%= post.user.email %>
-  </p>
-  <p >Posted <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</p>
-  <%= turbo_frame_tag :comments do %>
-    <%= render 'comments/comment', post: post %>
-  <% end %>
+<div class="border-4 border-slate-600 p-2 m-10 mt-20">
+  <div id="<%= dom_id post %>" class="" >
+    <p>
+      <strong>Body:</strong>
+      <%= post.body %>
+      <strong>, ID:</strong>
+      <%= post.id %>
+    </p>
+    <p>
+      <strong>User:</strong>
+      <%= post.user.email %>
+    </p>
+    <p >Posted <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</p>
+    <%= turbo_frame_tag :comments do %>
+      <%= render 'comments/comment', post: post %>
+    <% end %>
+  </div>
+  <%= render 'comments/form', post: post %>
 </div>
-<%= render 'comments/form', post: post %>
 <% comment do%>
   <%= render 'comments/comment', post: post %>
   <%= render 'comments/form', post: post %>
