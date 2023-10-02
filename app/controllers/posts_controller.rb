@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   include ApplicationHelper
-  before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_post, only: %i[show edit update destroy like]
 
   # GET /posts or /posts.json
   def index
@@ -8,7 +8,6 @@ class PostsController < ApplicationController
 
     @pagy, @posts = pagy_countless(Post.all, items: 3)
     @users = User.all
- 
 
     respond_to do |format|
       format.html
@@ -71,6 +70,12 @@ class PostsController < ApplicationController
   def like
     set_post
     current_user.like_post(@post)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: private_stream
+      end
+    end
   end
 
   def remove_notifications(post)
@@ -102,6 +107,13 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def private_stream
+    private_target = "#{helpers.dom_id(@post)} private_likes"
+    turbo_stream.replace(private_target,
+                         partial: 'likes/private_button',
+                         locals: { post: @post, like_status: current_user.liked_post?(@post) })
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_post
