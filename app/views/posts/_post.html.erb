@@ -10,6 +10,9 @@
     <%= post.user.email %>
   </p>
   <p >Posted <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</p>
+  <%= turbo_frame_tag :comments do %>
+    <%= render 'comments/comment', post: post %>
+  <% end %>
 </div>
 <% comment do%>
   <%= render 'comments/comment', post: post %>

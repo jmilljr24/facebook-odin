@@ -5,8 +5,8 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @our_posts = current_user.friends_and_own_posts
-    # @pagy, @posts = pagy(Post.all, items: 10)
-    @pagy, @posts = pagy_countless(Post.all, items: 3)
+
+    @pagy, @posts = pagy_countless(Post.all, items: 10)
     @users = User.all
 
     respond_to do |format|
