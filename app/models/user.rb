@@ -2,6 +2,9 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
+  has_many :liked_comments, through: :likes, source: :comment
+
   has_many :notifications, dependent: :destroy
 
   has_many :friend_sent, class_name: 'Friendship', foreign_key: 'sent_by_id', inverse_of: 'sent_by', dependent: :destroy
