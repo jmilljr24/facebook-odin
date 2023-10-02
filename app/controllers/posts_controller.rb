@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
     @pagy, @posts = pagy_countless(Post.all, items: 3)
     @users = User.all
+ 
 
     respond_to do |format|
       format.html
@@ -65,6 +66,11 @@ class PostsController < ApplicationController
       format.html { redirect_to root_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def like
+    set_post
+    current_user.like_post(@post)
   end
 
   def remove_notifications(post)

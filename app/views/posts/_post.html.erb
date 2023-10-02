@@ -1,5 +1,10 @@
 <div class="border-4 border-slate-600 p-2 m-10 mt-20">
   <div id="<%= dom_id post %>" class="" >
+    <p> <%= current_user.email %></p>
+    <p><%= like_status = current_user.liked_post?(post) %></p>
+    <%= render 'likes/private_button',
+    post: post,
+    like_status: like_status %>
     <p>
       <strong>Body:</strong>
       <%= post.body %>

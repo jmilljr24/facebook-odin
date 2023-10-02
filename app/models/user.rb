@@ -32,6 +32,27 @@ class User < ApplicationRecord
     end
   end
 
+  def like_post(post)
+    if liked_posts.include?(post)
+      liked_posts.destroy(post)
+    else
+      liked_posts << post
+    end
+  end
+
+  def like_comment(comment)
+    if liked_comments.include?(comment)
+      liked_comments.destroy(comment)
+    else
+      liked_comments << comment
+    end
+  end
+
+  def liked_post?(post)
+    liked_posts.include?(post)
+  end
+  
+
   def friends_and_own_posts # rubocop:disable Metrics/MethodLength
     myfriends = friends
     our_posts = []

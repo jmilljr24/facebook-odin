@@ -1,0 +1,3 @@
+<% like_text = like_status ? "Unlike" : "Like"%>
+<%= button_to like_text, like_post_path(id: post.id) %>
+<%= render 'likes/like_count', post: post %>

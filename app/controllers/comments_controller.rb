@@ -34,6 +34,11 @@ class CommentsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def like
+    @comment = Comment.find(params[:id])
+    current_user.like_comment(@comment)
+  end
+
   def remove_notifications(comment)
     n = notification_find(comment)
     @notification.destroy
